@@ -7,9 +7,7 @@ const nextConfig = {
     unoptimized: true,
   },
 
-  devIndicators: {
-    buildActivity: false, // removes the "N" icon
-  },
+  devIndicators: false,
 };
 
 export default nextConfig;
