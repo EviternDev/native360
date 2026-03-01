@@ -1,4 +1,5 @@
 import { Card } from '@/components/ui/card';
+import { AnimateOnScroll } from '@/components/animate-on-scroll';
 
 const Services = () => {
   const services = [
@@ -41,8 +42,9 @@ const Services = () => {
   ];
 
   return (
-    <section id="services" className="py-16 md:py-24 bg-muted/30">
+    <section id="services" className="py-16 md:py-24 bg-gradient-to-b from-amber-50/50 to-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <AnimateOnScroll>
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
             Our Services
@@ -51,20 +53,22 @@ const Services = () => {
             Comprehensive care solutions designed specifically for NRI families
           </p>
         </div>
+        </AnimateOnScroll>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {services.map((service, index) => (
+            <AnimateOnScroll key={index} animation="fade-up" delay={index * 100}>
             <Card
-              key={index}
-              className="overflow-hidden bg-card border-border hover:shadow-lg hover:border-primary/30 transition-all group"
+              className="overflow-hidden bg-card border-border hover:shadow-xl hover:border-primary/30 transition-all duration-300 hover:-translate-y-1 group h-full"
             >
               {/* Service Image */}
               <div className="relative h-48 overflow-hidden bg-muted">
                 <img
                   src={service.image}
                   alt={service.title}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                 />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               </div>
               
               {/* Service Content */}
@@ -77,6 +81,7 @@ const Services = () => {
                 </p>
               </div>
             </Card>
+            </AnimateOnScroll>
           ))}
         </div>
       </div>

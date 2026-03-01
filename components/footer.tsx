@@ -2,7 +2,7 @@ import { Phone, Mail, Clock } from 'lucide-react';
 
 const Footer = () => {
   return (
-    <footer className="bg-primary text-primary-foreground pt-12 pb-8">
+    <footer className="bg-gradient-to-br from-gray-900 to-gray-800 text-white pt-12 pb-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
           {/* Contact Info */}
@@ -87,7 +87,8 @@ const Footer = () => {
         </div>
 
         {/* Divider */}
-        <div className="border-t border-primary-foreground/20 pt-8">
+        <div className="h-1 bg-gradient-to-r from-amber-500 via-amber-400 to-teal-500 rounded-full mb-8" />
+        <div className="border-t border-white/10 pt-8">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
             {/* Brand & Tagline */}
             <div>

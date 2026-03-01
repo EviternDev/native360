@@ -32,7 +32,7 @@ const Hero = () => {
         {heroImages.map((image, index) => (
           <div
             key={index}
-            className={`absolute inset-0 bg-cover bg-center transition-opacity duration-1000 ease-in-out ${
+            className={`absolute inset-0 bg-cover bg-center transition-opacity duration-1000 ease-in-out animate-kenburns ${
               index === currentImageIndex ? "opacity-100" : "opacity-0"
             }`}
             style={{
@@ -45,35 +45,37 @@ const Hero = () => {
         ))}
 
         {/* Overlay */}
-        <div className="absolute inset-0 bg-black/40" />
+        <div className="absolute inset-0 bg-gradient-to-br from-black/60 via-black/30 to-amber-900/40" />
       </div>
 
       {/* Content */}
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <div className="max-w-3xl mx-auto">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight text-balance">
+          {/* Ambient glow blob */}
+          <div className="absolute -top-20 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-amber-500/15 rounded-full blur-3xl animate-pulse-glow pointer-events-none" />
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight text-balance animate-in fade-in slide-in-from-bottom-4 duration-700">
             Care for Your Parents,{" "}
-            <span className="text-amber-100">From Anywhere</span>
+            <span className="text-amber-300">From Anywhere</span>
           </h1>
-          <p className="text-lg md:text-xl text-gray-100 mb-8 text-balance leading-relaxed">
+          <p className="text-lg md:text-xl text-gray-100 mb-8 text-balance leading-relaxed animate-in fade-in slide-in-from-bottom-4 duration-700 delay-200">
             Professional elder companionship and property management for NRI
             families. Peace of mind for you. Dignity and care for your parents.
           </p>
 
           {/* CTAs */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center animate-in fade-in slide-in-from-bottom-4 duration-700 delay-500">
             <a href="#booking">
-              <Button className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-6 text-lg font-semibold w-full sm:w-auto">
+              <Button className="bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-500 hover:to-amber-400 text-white px-8 py-6 text-lg font-semibold w-full sm:w-auto shadow-lg shadow-amber-500/30 hover:shadow-amber-500/50 transition-all duration-300 hover:scale-105">
                 Book Now
               </Button>
             </a>
             <a href="#about">
               <Button
                 variant="outline"
-                className="relative overflow-hidden border-white text-white px-8 py-6 text-lg font-semibold w-full sm:w-auto
+                className="relative overflow-hidden border-white/70 text-white px-8 py-6 text-lg font-semibold w-full sm:w-auto
   bg-white/10 backdrop-blur-sm
   transition-all duration-300 ease-out
-  hover:scale-105 hover:text-black group"
+  hover:scale-105 hover:text-black hover:border-white group"
               >
                 <span className="relative z-10">Learn More</span>
 

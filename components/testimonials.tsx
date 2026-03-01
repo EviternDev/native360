@@ -1,5 +1,6 @@
 import { Card } from '@/components/ui/card';
 import { Quote } from 'lucide-react';
+import { AnimateOnScroll } from '@/components/animate-on-scroll';
 
 const Testimonials = () => {
   const testimonials = [
@@ -30,8 +31,9 @@ const Testimonials = () => {
   ];
 
   return (
-    <section id="testimonials" className="py-16 md:py-24 bg-muted/30">
+    <section id="testimonials" className="py-16 md:py-24 bg-gradient-to-br from-primary/5 via-background to-accent/5">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <AnimateOnScroll>
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
             What Families Say
@@ -40,21 +42,22 @@ const Testimonials = () => {
             Real stories from NRI families who trust us with what matters most
           </p>
         </div>
+        </AnimateOnScroll>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {testimonials.map((testimonial, index) => (
+            <AnimateOnScroll key={index} animation="fade-up" delay={index * 150}>
             <Card
-              key={index}
-              className="p-8 bg-card border-border hover:shadow-lg transition-shadow flex flex-col"
+              className="p-8 bg-gradient-to-br from-card to-primary/5 border-border hover:shadow-xl transition-all duration-300 hover:-translate-y-1 flex flex-col h-full"
             >
               {/* Quote */}
-              <Quote className="w-8 h-8 text-primary/30 mb-4" />
+              <Quote className="w-8 h-8 text-primary opacity-60 mb-4" />
               <p className="text-foreground/80 text-lg italic mb-6 flex-grow leading-relaxed">
                 "{testimonial.quote}"
               </p>
 
               {/* Author */}
-              <div className="flex items-center gap-4 pt-4 border-t border-border">
+              <div className="flex items-center gap-4 pt-4 border-t border-primary/15">
                 <img
                   src={testimonial.image}
                   alt={testimonial.author}
@@ -70,6 +73,7 @@ const Testimonials = () => {
                 </div>
               </div>
             </Card>
+            </AnimateOnScroll>
           ))}
         </div>
       </div>

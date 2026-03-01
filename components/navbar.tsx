@@ -50,7 +50,7 @@ const Navbar = () => {
           {/* CTA Button & Mobile Menu */}
           <div className="flex items-center gap-4">
             <a href="#booking" className="hidden sm:inline-block">
-              <Button className="bg-primary hover:bg-primary/90 text-primary-foreground">
+              <Button className="bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-500 hover:to-amber-400 text-white shadow-md shadow-amber-500/20">
                 Book Now
               </Button>
             </a>
@@ -79,7 +79,7 @@ const Navbar = () => {
               </a>
             ))}
             <a href="#booking" className="block px-3 py-2">
-              <Button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground">
+              <Button className="w-full bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-500 hover:to-amber-400 text-white">
                 Book Now
               </Button>
             </a>
