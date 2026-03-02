@@ -51,11 +51,11 @@ const Hero = () => {
       {/* Content */}
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <div className="max-w-3xl mx-auto">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight text-balance">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight text-balance [text-shadow:0_2px_20px_rgba(0,0,0,0.8),0_1px_4px_rgba(0,0,0,0.6)]">
             Care for Your Parents,{" "}
-            <span className="text-amber-100">From Anywhere</span>
+            <span className="text-amber-300">From Anywhere</span>
           </h1>
-          <p className="text-lg md:text-xl text-gray-100 mb-8 text-balance leading-relaxed">
+          <p className="text-lg md:text-xl text-gray-100 mb-8 text-balance leading-relaxed [text-shadow:0_1px_12px_rgba(0,0,0,0.9),0_1px_3px_rgba(0,0,0,0.7)]">
             Professional elder companionship and property management for NRI
             families. Peace of mind for you. Dignity and care for your parents.
           </p>
