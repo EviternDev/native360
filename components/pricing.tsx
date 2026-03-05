@@ -1,78 +1,78 @@
-'use client';
+"use client";
 
-import { Check } from 'lucide-react';
-import { Card } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
+import { Check } from "lucide-react";
+import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 
 const Pricing = () => {
   const packages = [
     {
-      name: 'The Essential Bridge',
-      description: 'Perfect for property oversight',
-      price: 'From ₹XX,XXX',
+      name: "The Essential Bridge",
+      description: "Perfect for property oversight",
+      price: "From ₹XX,XXX",
       popular: false,
       features: [
         {
-          category: 'Pillar 1: Estate Management',
-          items: ['Exterior • Quarterly Clean', 'Property Inspections'],
+          category: "Pillar 1: Estate Management",
+          items: ["Exterior • Quarterly Clean", "Property Inspections"],
         },
         {
-          category: 'Pillar 2: Parental Wellness',
-          items: ['No Services Included'],
+          category: "Pillar 2: Parental Wellness",
+          items: ["No Services Included"],
         },
         {
-          category: 'Pillar 3: Travel & Lifestyle',
-          items: ['No Services Included'],
+          category: "Pillar 3: Travel & Lifestyle",
+          items: ["No Services Included"],
         },
       ],
     },
     {
-      name: 'The Comfort Connect',
-      description: 'Comprehensive care and support',
-      price: 'Starting from ₹XX,XXM',
+      name: "The Comfort Connect",
+      description: "Comprehensive care and support",
+      price: "Starting from ₹XX,XXM",
       popular: true,
       features: [
         {
-          category: 'Pillar 1: Estate Management',
-          items: ['Full Rental + Biannual Clean', 'Repairs • Upkeep'],
+          category: "Pillar 1: Estate Management",
+          items: ["Full Rental + Biannual Clean", "Repairs • Upkeep"],
         },
         {
-          category: 'Pillar 2: Parental Wellness',
-          items: ['House Pop', 'Doctor Visits'],
+          category: "Pillar 2: Parental Wellness",
+          items: ["House Pop", "Doctor Visits"],
         },
         {
-          category: 'Pillar 3: Travel & Lifestyle',
-          items: ['2 Airport Trips/Year'],
+          category: "Pillar 3: Travel & Lifestyle",
+          items: ["2 Airport Trips/Year"],
         },
       ],
     },
     {
-      name: 'The Heritage Elite',
-      description: 'Premium all-inclusive service',
-      price: 'Starting from ₹XX,XXM',
+      name: "The Heritage Elite",
+      description: "Premium all-inclusive service",
+      price: "Starting from ₹XX,XXM",
       popular: false,
       features: [
         {
-          category: 'Pillar 1: Estate Management',
-          items: ['Full Stewardship + Guest-Ready', 'Property Oversight • Event Support'],
+          category: "Pillar 1: Estate Management",
+          items: [
+            "Full Stewardship + Guest-Ready",
+            "Property Oversight • Event Support",
+          ],
         },
         {
-          category: 'Pillar 2: Parental Wellness',
-          items: ['Concierge', 'Daily Wellness Check'],
+          category: "Pillar 2: Parental Wellness",
+          items: ["Concierge", "Daily Wellness Check"],
         },
         {
-          category: 'Pillar 3: Travel & Lifestyle',
-          items: ['Unlimited Transit + Travel Help'],
+          category: "Pillar 3: Travel & Lifestyle",
+          items: ["Unlimited Transit + Travel Help"],
         },
       ],
     },
   ];
 
   return (
-    <section
-      id="pricing"
-      className="py-16 md:py-24 px-4 md:px-8 bg-muted/30"
-    >
+    <section id="pricing" className="py-16 md:py-24 px-4 md:px-8 bg-muted/30">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-12">
@@ -80,7 +80,8 @@ const Pricing = () => {
             Transparent Pricing
           </h2>
           <p className="text-foreground/70 text-lg max-w-2xl mx-auto">
-            Choose the package that best fits your family's needs. All packages include professional support and peace of mind.
+            Choose the package that best fits your family's needs. All packages
+            include professional support and peace of mind.
           </p>
         </div>
 
@@ -91,8 +92,8 @@ const Pricing = () => {
               key={index}
               className={`flex flex-col p-8 transition-all ${
                 pkg.popular
-                  ? 'border-primary border-2 shadow-2xl scale-105'
-                  : 'border-border'
+                  ? "border-primary border-2 shadow-2xl scale-105"
+                  : "border-border"
               }`}
             >
               {/* Package Header */}
@@ -144,11 +145,12 @@ const Pricing = () => {
 
               {/* CTA Button */}
               <Button
-                onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
-                className={`w-full py-3 font-semibold transition-all ${
+                variant={pkg.popular ? "default" : "outline"}
+                onClick={() => (window.location.href = "/#booking")}
+                className={`w-full py-3 font-semibold transition-none hover:transition-none ${
                   pkg.popular
-                    ? 'bg-primary hover:bg-primary/90 text-primary-foreground'
-                    : 'border border-primary text-primary hover:bg-primary hover:text-primary-foreground'
+                    ? "bg-primary hover:bg-primary/90 text-primary-foreground"
+                    : "border-primary text-primary hover:bg-primary hover:text-primary-foreground"
                 }`}
               >
                 Get Started
@@ -163,9 +165,14 @@ const Pricing = () => {
             Customizable Packages Available
           </h3>
           <p className="text-foreground/70 mb-4">
-            Every family is unique. We offer fully customizable packages tailored to your specific needs and budget. Contact our team to discuss a bespoke solution that works perfectly for your situation.
+            Every family is unique. We offer fully customizable packages
+            tailored to your specific needs and budget. Contact our team to
+            discuss a bespoke solution that works perfectly for your situation.
           </p>
-          <Button className="bg-primary hover:bg-primary/90">
+          <Button
+            onClick={() => (window.location.href = "/#booking")}
+            className="bg-primary hover:bg-primary/90"
+          >
             Schedule a Consultation
           </Button>
         </div>
