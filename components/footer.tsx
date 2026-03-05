@@ -39,8 +39,7 @@ const Footer = () => {
                             {[
                                 "Kottayam",
                                 "Ernakulam",
-                                "Alappuzha",
-                                "Other Districts",
+                                "Pathanamthitta",
                             ].map((area) => (
                                 <li key={area}>
                                     <a
