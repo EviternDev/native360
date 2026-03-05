@@ -1,15 +1,16 @@
 "use client";
 
 import { Check } from "lucide-react";
-import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 
 const Pricing = () => {
   const packages = [
     {
+      id: 1,
       name: "The Essential Bridge",
       description: "Perfect for property oversight",
       price: "From ₹XX,XXX",
+      image: "/pricing-essential-bridge.jpg",
       popular: false,
       features: [
         {
@@ -27,9 +28,11 @@ const Pricing = () => {
       ],
     },
     {
+      id: 2,
       name: "The Comfort Connect",
       description: "Comprehensive care and support",
       price: "Starting from ₹XX,XXM",
+      image: "/pricing-comfort-connect.jpg",
       popular: true,
       features: [
         {
@@ -47,9 +50,11 @@ const Pricing = () => {
       ],
     },
     {
+      id: 3,
       name: "The Heritage Elite",
       description: "Premium all-inclusive service",
       price: "Starting from ₹XX,XXM",
+      image: "/pricing-heritage-elite.jpg",
       popular: false,
       features: [
         {
@@ -72,108 +77,115 @@ const Pricing = () => {
   ];
 
   return (
-    <section id="pricing" className="py-16 md:py-24 px-4 md:px-8 bg-muted/30">
+    <section id="pricing" className="py-20 md:py-32 px-4 md:px-8 bg-background">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-            Transparent Pricing
+        <div className="text-center mb-16">
+          <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6 text-balance">
+            Premium Care Packages Designed for You
           </h2>
-          <p className="text-foreground/70 text-lg max-w-2xl mx-auto">
-            Choose the package that best fits your family's needs. All packages
-            include professional support and peace of mind.
+          <p className="text-xl text-foreground/70 max-w-3xl mx-auto text-balance">
+            From essential support to white-glove service, we offer flexible
+            packages tailored to your family's needs and lifestyle.
           </p>
         </div>
 
-        {/* Pricing Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+        {/* Pricing Cards with Images */}
+        <div className="space-y-12">
           {packages.map((pkg, index) => (
-            <Card
-              key={index}
-              className={`flex flex-col p-8 transition-all ${
-                pkg.popular
-                  ? "border-primary border-2 shadow-2xl scale-105"
-                  : "border-border"
-              }`}
+            <div
+              key={pkg.id}
+              className={`flex flex-col ${
+                index % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
+              } gap-8 items-center`}
             >
-              {/* Package Header */}
-              {pkg.popular && (
-                <div className="mb-4 inline-block">
-                  <span className="bg-primary text-primary-foreground text-xs font-bold px-3 py-1 rounded-full">
-                    MOST POPULAR
-                  </span>
+              {/* Image */}
+              <div className="w-full md:w-1/2">
+                <div className="relative rounded-2xl overflow-hidden shadow-xl h-96">
+                  <img
+                    src={pkg.image}
+                    alt={pkg.name}
+                    className="w-full h-full object-cover"
+                  />
+                  {pkg.popular && (
+                    <div className="absolute top-6 right-6">
+                      <span className="bg-primary text-primary-foreground text-xs font-bold px-4 py-2 rounded-full">
+                        MOST POPULAR
+                      </span>
+                    </div>
+                  )}
                 </div>
-              )}
-
-              <h3 className="text-2xl font-bold text-foreground mb-2">
-                {pkg.name}
-              </h3>
-              <p className="text-foreground/60 text-sm mb-4">
-                {pkg.description}
-              </p>
-
-              {/* Price */}
-              <div className="mb-6">
-                <p className="text-3xl font-bold text-primary mb-1">
-                  {pkg.price}
-                </p>
-                <p className="text-sm text-foreground/60">
-                  Contact us for custom quotes
-                </p>
               </div>
 
-              {/* Features */}
-              <div className="flex-grow mb-8 space-y-6">
-                {pkg.features.map((feature, fIdx) => (
-                  <div key={fIdx}>
-                    <h4 className="font-semibold text-foreground mb-3 text-sm">
-                      {feature.category}
-                    </h4>
-                    <ul className="space-y-2">
-                      {feature.items.map((item, iIdx) => (
-                        <li key={iIdx} className="flex items-start gap-3">
-                          <Check className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
-                          <span className="text-foreground/70 text-sm">
-                            {item}
-                          </span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                ))}
-              </div>
+              {/* Content */}
+              <div className="w-full md:w-1/2">
+                <h3 className="text-3xl md:text-4xl font-bold text-foreground mb-3">
+                  {pkg.name}
+                </h3>
+                <p className="text-lg text-foreground/70 mb-6">
+                  {pkg.description}
+                </p>
 
-              {/* CTA Button */}
-              <Button
-                variant={pkg.popular ? "default" : "outline"}
-                onClick={() => (window.location.href = "/#booking")}
-                className={`w-full py-3 font-semibold transition-none hover:transition-none ${
-                  pkg.popular
-                    ? "bg-primary hover:bg-primary/90 text-primary-foreground"
-                    : "border-primary text-primary hover:bg-primary hover:text-primary-foreground"
-                }`}
-              >
-                Get Started
-              </Button>
-            </Card>
+                {/* Price */}
+                <div className="mb-8">
+                  <p className="text-4xl font-bold text-primary mb-2">
+                    {pkg.price}
+                  </p>
+                  <p className="text-sm text-foreground/60">
+                    Customization available on request
+                  </p>
+                </div>
+
+                {/* Features */}
+                <div className="space-y-6 mb-8">
+                  {pkg.features.map((feature, fIdx) => (
+                    <div key={fIdx}>
+                      <h4 className="font-semibold text-foreground mb-3">
+                        {feature.category}
+                      </h4>
+                      <ul className="space-y-2">
+                        {feature.items.map((item, iIdx) => (
+                          <li key={iIdx} className="flex items-start gap-3">
+                            <Check className="w-6 h-6 text-primary flex-shrink-0 mt-1" />
+                            <span className="text-foreground/80">{item}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
+                </div>
+
+                {/* CTA Button */}
+                <Button
+                  variant={pkg.popular ? "default" : "outline"}
+                  onClick={() => (window.location.href = "/#booking")}
+                  className={`font-semibold py-3 px-8 text-lg transition-none hover:transition-none ${
+                    pkg.popular
+                      ? "bg-primary hover:bg-primary/90 text-primary-foreground"
+                      : "border-2 border-primary text-primary hover:bg-primary/10"
+                  }`}
+                >
+                  Get Started
+                </Button>
+              </div>
+            </div>
           ))}
         </div>
 
-        {/* Additional Info */}
-        <div className="bg-background rounded-lg p-8 border border-border">
-          <h3 className="text-xl font-bold text-foreground mb-4">
-            Customizable Packages Available
+        {/* Customization Section */}
+        <div className="mt-20 bg-muted/50 rounded-2xl p-10 md:p-16 text-center border border-border">
+          <h3 className="text-3xl font-bold text-foreground mb-4">
+            Need a Custom Solution?
           </h3>
-          <p className="text-foreground/70 mb-4">
-            Every family is unique. We offer fully customizable packages
-            tailored to your specific needs and budget. Contact our team to
-            discuss a bespoke solution that works perfectly for your situation.
+          <p className="text-lg text-foreground/70 mb-8 max-w-2xl mx-auto">
+            Every family is unique. We create bespoke packages that perfectly
+            match your needs, preferences, and budget.
           </p>
           <Button
             onClick={() => (window.location.href = "/#booking")}
-            className="bg-primary hover:bg-primary/90"
+            className="bg-secondary hover:bg-secondary/90 text-secondary-foreground font-semibold py-3 px-8 text-lg"
           >
-            Schedule a Consultation
+            Schedule Free Consultation
           </Button>
         </div>
       </div>
