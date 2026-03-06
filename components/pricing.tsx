@@ -15,7 +15,7 @@ const Pricing = () => {
       features: [
         {
           category: " Estate Management",
-          items: ["Exterior • Quarterly Clean", "Maintenance checks"],
+          items: ["Exterior property monitoring", "Quarterly cleaning and maintenance checks"],
         },
         {
           category: "Parental Wellness",
