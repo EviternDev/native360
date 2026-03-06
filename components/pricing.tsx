@@ -14,16 +14,16 @@ const Pricing = () => {
       popular: false,
       features: [
         {
-          category: "Pillar 1: Estate Management",
-          items: ["Exterior • Quarterly Clean", "Property Inspections"],
+          category: " Estate Management",
+          items: ["Exterior • Quarterly Clean", "Maintenance checks"],
         },
         {
-          category: "Pillar 2: Parental Wellness",
-          items: ["No Services Included"],
+          category: "Parental Wellness",
+          items: ["Bi-weekly wellness visits","Basic check-ins and support"],
         },
         {
-          category: "Pillar 3: Travel & Lifestyle",
-          items: ["No Services Included"],
+          category: "Travel & Lifestyle",
+          items: ["1 airport trip per year"],
         },
       ],
     },
@@ -36,16 +36,16 @@ const Pricing = () => {
       popular: true,
       features: [
         {
-          category: "Pillar 1: Estate Management",
-          items: ["Full Rental + Biannual Clean", "Repairs • Upkeep"],
+          category: "Estate Management",
+          items: ["Full rental management support", "Bi-annual deep cleaning"],
         },
         {
-          category: "Pillar 2: Parental Wellness",
-          items: ["House Pop", "Doctor Visits"],
+          category: "Parental Wellness",
+          items: ["Weekly visits", "Accompanied outings and support"],
         },
         {
-          category: "Pillar 3: Travel & Lifestyle",
-          items: ["2 Airport Trips/Year"],
+          category: "Travel & Lifestyle",
+          items: ["2 Airport Trips/Year","House preparation before arrivals"],
         },
       ],
     },
@@ -58,19 +58,19 @@ const Pricing = () => {
       popular: false,
       features: [
         {
-          category: "Pillar 1: Estate Management",
+          category: "Estate Management",
           items: [
             "Full Stewardship + Guest-Ready",
-            "Property Oversight • Event Support",
+            "Home always guest-ready",
           ],
         },
         {
-          category: "Pillar 2: Parental Wellness",
-          items: ["Concierge", "Daily Wellness Check"],
+          category: "Parental Wellness",
+          items: ["Twice-weekly visits", "Event management and family support"],
         },
         {
-          category: "Pillar 3: Travel & Lifestyle",
-          items: ["Unlimited Transit + Travel Help"],
+          category: "Travel & Lifestyle",
+          items: ["Unlimited local transport coordination","Travel planning and assistance"],
         },
       ],
     },
