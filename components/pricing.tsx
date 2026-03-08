@@ -1,193 +1,316 @@
 "use client";
 
-import { Check } from "lucide-react";
+import { useState } from "react";
+import { Check, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Card, CardHeader, CardContent, CardFooter } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { AnimateOnScroll } from "@/components/animate-on-scroll";
+import Image from "next/image";
 
-const Pricing = () => {
-  const packages = [
-    {
-      id: 1,
-      name: "The Essential Bridge",
-      description: "Perfect for property oversight",
-      price: "From ₹XX,XXX",
-      image: "/pricing-essential-bridge.jpg",
-      popular: false,
-      features: [
-        {
-          category: " Estate Management",
-          items: ["Exterior property monitoring", "Quarterly cleaning and maintenance checks"],
-        },
-        {
-          category: "Parental Wellness",
-          items: ["Bi-weekly wellness visits","Basic check-ins and support"],
-        },
-        {
-          category: "Travel & Lifestyle",
-          items: ["1 airport trip per year"],
-        },
-      ],
-    },
-    {
-      id: 2,
-      name: "The Comfort Connect",
-      description: "Comprehensive care and support",
-      price: "Starting from ₹XX,XXM",
-      image: "/pricing-comfort-connect.jpg",
-      popular: true,
-      features: [
-        {
-          category: "Estate Management",
-          items: ["Full rental management support", "Bi-annual deep cleaning"],
-        },
-        {
-          category: "Parental Wellness",
-          items: ["Weekly visits", "Accompanied outings and support"],
-        },
-        {
-          category: "Travel & Lifestyle",
-          items: ["2 Airport Trips/Year","House preparation before arrivals"],
-        },
-      ],
-    },
-    {
-      id: 3,
-      name: "The Heritage Elite",
-      description: "Premium all-inclusive service",
-      price: "Starting from ₹XX,XXM",
-      image: "/pricing-heritage-elite.jpg",
-      popular: false,
-      features: [
-        {
-          category: "Estate Management",
-          items: [
-            "Full Stewardship + Guest-Ready",
-            "Home always guest-ready",
-          ],
-        },
-        {
-          category: "Parental Wellness",
-          items: ["Twice-weekly visits", "Event management and family support"],
-        },
-        {
-          category: "Travel & Lifestyle",
-          items: ["Unlimited local transport coordination","Travel planning and assistance"],
-        },
-      ],
-    },
-  ];
+const packages = [
+  {
+    id: 1,
+    name: "The Essential Bridge",
+    description: "Essential care for your home and parents",
+    price: "₹18,000",
+    priceUsd: "$196",
+    image: "/pricing-essential-bridge.jpg",
+    popular: false,
+    features: [
+      {
+        category: "Estate Management",
+        items: ["Deep Cleaning", "Maintenance check"],
+      },
+      {
+        category: "Parental Wellness",
+        items: ["Visits — Home", "Digital Support"],
+      },
+      {
+        category: "Travel & Lifestyle",
+        items: ["Airport transfer (one way)"],
+      },
+    ],
+  },
+  {
+    id: 2,
+    name: "The Mithram",
+    description: "Deeper presence for family and home",
+    price: "₹30,000",
+    priceUsd: "$326",
+    image: "/pricing-comfort-connect.jpg",
+    popular: true,
+    features: [
+      {
+        category: "Estate Management",
+        items: ["Deep Cleaning", "Exterior cleaning"],
+      },
+      {
+        category: "Parental Wellness",
+        items: ["Visits — Home", "Visits — Outside"],
+      },
+      {
+        category: "Travel & Lifestyle",
+        items: ["Airport transfer (one way)", "Safe Passage", "Special Occasion / Gift delivery"],
+      },
+    ],
+  },
+  {
+    id: 3,
+    name: "The Heritage Elite",
+    description: "Full stewardship of your home and family",
+    price: "₹45,000",
+    priceUsd: "$490",
+    image: "/pricing-heritage-elite.jpg",
+    popular: false,
+    features: [
+      {
+        category: "Estate Management",
+        items: ["Deep Cleaning", "Exterior cleaning", "Rental Management"],
+      },
+      {
+        category: "Parental Wellness",
+        items: ["Visits — Home", "Visits — Outside"],
+      },
+      {
+        category: "Travel & Lifestyle",
+        items: ["Event Coordination", "Tour plan & Assistance", "Airport transfer (one way)", "Safe Passage"],
+      },
+      {
+        category: "Others",
+        items: ["Selling of Property Goods / Trees / Things"],
+      },
+    ],
+  },
+];
+
+// Total feature items per plan — used to decide if expand is needed
+const totalItems = (pkg: typeof packages[number]) =>
+  pkg.features.reduce((acc, f) => acc + f.items.length, 0);
+
+// The tallest plan drives height — everything else expands to match
+const MAX_ITEMS = Math.max(...packages.map(totalItems));
+
+function PricingCard({ pkg }: { pkg: typeof packages[number] }) {
+  const [expanded, setExpanded] = useState(false);
+  const isShort = totalItems(pkg) < MAX_ITEMS;
+  const showToggle = isShort;
 
   return (
-    <section id="pricing" className="py-20 md:py-32 px-4 md:px-8 bg-background">
-      <div className="max-w-7xl mx-auto">
-        {/* Header */}
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6 text-balance">
-            Premium Care Packages Designed for You
-          </h2>
-          <p className="text-xl text-foreground/70 max-w-3xl mx-auto text-balance">
-            From essential support to white-glove service, we offer flexible
-            packages tailored to your family's needs and lifestyle.
+    <Card
+      className={`group relative flex flex-col h-full overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1 gap-0 py-0 ${
+        pkg.popular
+          ? "lg:scale-105 ring-2 ring-primary/40 shadow-lg shadow-primary/10"
+          : "hover:border-primary/30"
+      }`}
+    >
+      {/* Image Banner — flush to top, no gap */}
+      <div className="relative h-52 w-full overflow-hidden flex-shrink-0 rounded-t-xl">
+        <Image
+          src={pkg.image}
+          alt={pkg.name}
+          fill
+          className="object-cover group-hover:scale-110 transition-transform duration-500"
+          sizes="(max-width: 1024px) 100vw, 33vw"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-card via-card/20 to-transparent" />
+        {pkg.popular && (
+          <div className="absolute top-4 right-4">
+            <Badge className="text-xs font-bold px-3 py-1 rounded-full shadow-md">
+              MOST POPULAR
+            </Badge>
+          </div>
+        )}
+      </div>
+
+      {/* Card Header: Name + Description + Price */}
+      <CardHeader className="px-6 pt-5 pb-0">
+        <h3 className="text-2xl font-bold text-foreground">
+          {pkg.name}
+        </h3>
+        <p className="text-sm text-foreground/60">
+          {pkg.description}
+        </p>
+        <div className="mt-2">
+          <div className="flex items-baseline gap-3">
+            <p className="text-3xl font-bold text-primary">
+              {pkg.price}
+            </p>
+            <p className="text-base font-medium text-foreground/40">
+              {pkg.priceUsd}
+            </p>
+          </div>
+          <p className="text-xs text-foreground/50 mt-1">
+            per month &middot; customisable on request
           </p>
         </div>
+      </CardHeader>
 
-        {/* Pricing Cards with Images */}
-        <div className="space-y-12">
+      {/* Features — grow to fill available space */}
+      <CardContent className="flex-1 space-y-5 px-6 pt-5 pb-0">
+        {pkg.features.map((feature, fIdx) => (
+          <div key={fIdx}>
+            <h4 className="text-xs font-semibold uppercase tracking-wider text-primary mb-2.5 border-l-2 border-primary/40 pl-2">
+              {feature.category}
+            </h4>
+            <ul className="space-y-2">
+              {feature.items.map((item, iIdx) => (
+                <li key={iIdx} className="flex items-start gap-2.5">
+                  <span className="bg-primary/10 rounded-full p-1 mt-0.5 flex-shrink-0">
+                    <Check className="w-3.5 h-3.5 text-primary" />
+                  </span>
+                  <span className="text-sm text-foreground/80">
+                    {item}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+
+        {/* Expand toggle — only shown on shorter cards */}
+        {showToggle && (
+          <button
+            onClick={() => setExpanded((v) => !v)}
+            className="flex items-center gap-1.5 text-xs font-semibold text-primary/70 hover:text-primary transition-colors duration-200 mt-2 group/toggle"
+            aria-expanded={expanded}
+          >
+            <ChevronDown
+              className={`w-3.5 h-3.5 transition-transform duration-300 ${
+                expanded ? "rotate-180" : ""
+              }`}
+            />
+            {expanded ? "Show less" : "What's not included"}
+          </button>
+        )}
+
+        {/* Greyed-out "not included" items shown when expanded */}
+        {showToggle && expanded && (
+          <div className="space-y-5 border-t border-border/50 pt-4 animate-in fade-in slide-in-from-top-2 duration-300">
+            {packages[2].features
+              .filter(
+                (eliteFeature) =>
+                  !pkg.features.some((f) => f.category === eliteFeature.category) ||
+                  eliteFeature.items.some(
+                    (item) =>
+                      !pkg.features
+                        .find((f) => f.category === eliteFeature.category)
+                        ?.items.includes(item)
+                  )
+              )
+              .map((feature, fIdx) => {
+                const existingCat = pkg.features.find(
+                  (f) => f.category === feature.category
+                );
+                const missingItems = feature.items.filter(
+                  (item) => !existingCat?.items.includes(item)
+                );
+                if (missingItems.length === 0) return null;
+                return (
+                  <div key={fIdx} className="opacity-40">
+                    <h4 className="text-xs font-semibold uppercase tracking-wider text-foreground/50 mb-2.5 border-l-2 border-border pl-2">
+                      {feature.category}
+                    </h4>
+                    <ul className="space-y-2">
+                      {missingItems.map((item, iIdx) => (
+                        <li key={iIdx} className="flex items-start gap-2.5">
+                          <span className="bg-muted rounded-full p-1 mt-0.5 flex-shrink-0">
+                            <Check className="w-3.5 h-3.5 text-foreground/30" />
+                          </span>
+                          <span className="text-sm text-foreground/40 line-through decoration-foreground/20">
+                            {item}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                );
+              })}
+          </div>
+        )}
+      </CardContent>
+
+      {/* CTA — always pinned to bottom */}
+      <CardFooter className="mt-auto px-6 pb-6 pt-5">
+        <Button
+          variant={pkg.popular ? "default" : "outline"}
+          onClick={() => (window.location.href = "/#booking")}
+          className={`w-full font-semibold py-3 text-base transition-all duration-300 hover:scale-105 hover:shadow-lg cursor-pointer ${
+            pkg.popular
+              ? "bg-primary hover:bg-primary/90 text-primary-foreground"
+              : "border-2 border-primary text-primary hover:bg-primary/10"
+          }`}
+        >
+          Talk to Us
+        </Button>
+      </CardFooter>
+    </Card>
+  );
+}
+
+const Pricing = () => {
+  return (
+    <section
+      id="pricing"
+      className="py-20 md:py-32 px-4 md:px-8 bg-gradient-to-b from-background via-muted/30 to-background"
+    >
+      <div className="max-w-7xl mx-auto">
+        {/* Header */}
+        <AnimateOnScroll animation="fade-up">
+          <div className="text-center mb-16">
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary mb-4">
+              Flexible Care Plans
+            </p>
+            <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-5 text-balance">
+              Our Packages
+            </h2>
+            <div className="w-12 h-0.5 bg-primary/40 mx-auto mb-5 rounded-full" />
+            <p className="text-lg text-foreground/60 max-w-2xl mx-auto text-balance leading-relaxed">
+              One point of contact for your parents, your property, and everything
+              that ties you to Kerala. Choose the level of care that fits your family.
+            </p>
+          </div>
+        </AnimateOnScroll>
+
+        {/* Pricing Cards Grid — items-stretch so all cards fill the same row height */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
           {packages.map((pkg, index) => (
-            <div
+            <AnimateOnScroll
               key={pkg.id}
-              className={`flex flex-col ${
-                index % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
-              } gap-8 items-center`}
+              animation="fade-up"
+              delay={index * 150}
             >
-              {/* Image */}
-              <div className="w-full md:w-1/2">
-                <div className="relative rounded-2xl overflow-hidden shadow-xl h-96">
-                  <img
-                    src={pkg.image}
-                    alt={pkg.name}
-                    className="w-full h-full object-cover"
-                  />
-                  {pkg.popular && (
-                    <div className="absolute top-6 right-6">
-                      <span className="bg-primary text-primary-foreground text-xs font-bold px-4 py-2 rounded-full">
-                        MOST POPULAR
-                      </span>
-                    </div>
-                  )}
-                </div>
+              <div className="h-full">
+                <PricingCard pkg={pkg} />
               </div>
-
-              {/* Content */}
-              <div className="w-full md:w-1/2">
-                <h3 className="text-3xl md:text-4xl font-bold text-foreground mb-3">
-                  {pkg.name}
-                </h3>
-                <p className="text-lg text-foreground/70 mb-6">
-                  {pkg.description}
-                </p>
-
-                {/* Price */}
-                <div className="mb-8">
-                  <p className="text-4xl font-bold text-primary mb-2">
-                    {pkg.price}
-                  </p>
-                  <p className="text-sm text-foreground/60">
-                    Customization available on request
-                  </p>
-                </div>
-
-                {/* Features */}
-                <div className="space-y-6 mb-8">
-                  {pkg.features.map((feature, fIdx) => (
-                    <div key={fIdx}>
-                      <h4 className="font-semibold text-foreground mb-3">
-                        {feature.category}
-                      </h4>
-                      <ul className="space-y-2">
-                        {feature.items.map((item, iIdx) => (
-                          <li key={iIdx} className="flex items-start gap-3">
-                            <Check className="w-6 h-6 text-primary flex-shrink-0 mt-1" />
-                            <span className="text-foreground/80">{item}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  ))}
-                </div>
-
-                {/* CTA Button */}
-                <Button
-                  variant={pkg.popular ? "default" : "outline"}
-                  onClick={() => (window.location.href = "/#booking")}
-                  className={`font-semibold py-3 px-8 text-lg transition-none hover:transition-none ${
-                    pkg.popular
-                      ? "bg-primary hover:bg-primary/90 text-primary-foreground"
-                      : "border-2 border-primary text-primary hover:bg-primary/10"
-                  }`}
-                >
-                  Get Started
-                </Button>
-              </div>
-            </div>
+            </AnimateOnScroll>
           ))}
         </div>
 
-        {/* Customization Section */}
-        <div className="mt-20 bg-muted/50 rounded-2xl p-10 md:p-16 text-center border border-border">
-          <h3 className="text-3xl font-bold text-foreground mb-4">
-            Need a Custom Solution?
-          </h3>
-          <p className="text-lg text-foreground/70 mb-8 max-w-2xl mx-auto">
-            Every family is unique. We create bespoke packages that perfectly
-            match your needs, preferences, and budget.
-          </p>
-          <Button
-            onClick={() => (window.location.href = "/#booking")}
-            className="bg-secondary hover:bg-secondary/90 text-secondary-foreground font-semibold py-3 px-8 text-lg"
-          >
-            Schedule Free Consultation
-          </Button>
-        </div>
+        {/* Custom Solution CTA */}
+        <AnimateOnScroll animation="fade-up" delay={500}>
+          <div className="mt-20 rounded-2xl p-10 md:p-16 text-center border border-border bg-gradient-to-br from-secondary/10 via-primary/5 to-muted/50 relative overflow-hidden">
+            {/* Decorative elements */}
+            <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl" />
+            <div className="absolute bottom-0 left-0 w-48 h-48 bg-secondary/5 rounded-full translate-y-1/2 -translate-x-1/2 blur-2xl" />
+
+            <div className="relative">
+              <h3 className="text-3xl font-bold text-foreground mb-4">
+                Need Something Different?
+              </h3>
+              <p className="text-lg text-foreground/70 mb-8 max-w-2xl mx-auto">
+                No two families are the same. Tell us what matters most, and
+                we&apos;ll build a package around your life back home.
+              </p>
+              <Button
+                onClick={() => (window.location.href = "/#booking")}
+                className="bg-secondary hover:bg-secondary/90 text-secondary-foreground font-semibold py-3 px-8 text-lg transition-all duration-300 hover:scale-105 hover:shadow-lg cursor-pointer"
+              >
+                Schedule Free Consultation
+              </Button>
+            </div>
+          </div>
+        </AnimateOnScroll>
       </div>
     </section>
   );
