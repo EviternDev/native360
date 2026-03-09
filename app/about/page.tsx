@@ -1,35 +1,7 @@
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
-import { Card } from "@/components/ui/card";
-import { Award, Briefcase, Users, Star } from "lucide-react";
 
 export default function AboutPage() {
-  const values = [
-    {
-      icon: Briefcase,
-      title: "20 Years of Leadership",
-      description:
-        "Backed by two decades of executive corporate leadership, we bring unparalleled professionalism to every engagement.",
-    },
-    {
-      icon: Award,
-      title: "IIM Kozhikode Credentials",
-      description:
-        "Our founder's IIM Kozhikode background ensures world-class management practices are applied to your family's needs.",
-    },
-    {
-      icon: Users,
-      title: "Family-First Approach",
-      description:
-        "We operate with the trust of a family member while maintaining the accountability of a corporate entity.",
-    },
-    {
-      icon: Star,
-      title: "Cultural Integrity",
-      description:
-        "As fellow Malayalis, we bring deep cultural sensitivity and genuine understanding to every service we provide.",
-    },
-  ];
 
   return (
     <main>
@@ -125,33 +97,6 @@ export default function AboutPage() {
               </div>
             </div>
 
-            {/* Values Grid */}
-            <div>
-              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-10 text-center">
-                Why Families Trust Us
-              </h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                {values.map((value, index) => {
-                  const Icon = value.icon;
-                  return (
-                    <Card
-                      key={index}
-                      className="p-6 bg-card border-border hover:shadow-lg transition-all duration-300 hover:-translate-y-1 border-t-2 border-t-primary/30"
-                    >
-                      <div className="bg-primary/10 rounded-xl p-3 w-fit mb-4">
-                        <Icon className="w-8 h-8 text-primary" />
-                      </div>
-                      <h3 className="text-lg font-semibold text-foreground mb-3">
-                        {value.title}
-                      </h3>
-                      <p className="text-foreground/70 leading-relaxed text-sm">
-                        {value.description}
-                      </p>
-                    </Card>
-                  );
-                })}
-              </div>
-            </div>
           </div>
         </section>
       </div>
