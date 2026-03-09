@@ -141,7 +141,7 @@ function PricingCard({ pkg }: { pkg: typeof packages[number] }) {
             </p>
           </div>
           <p className="text-xs text-foreground/50 mt-1">
-            per month &middot; customisable on request
+            per quarter &middot; customisable on request
           </p>
         </div>
       </CardHeader>
