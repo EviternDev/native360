@@ -5,14 +5,14 @@ import { AnimateOnScroll } from "@/components/animate-on-scroll";
 const Testimonials = () => {
     const testimonials = [
         {
-            quote: "Don't spend your vacation cleaning. Land in Kerala, drop your bags, and start living. We prep your home before you arrive.",
-            author: "Rajesh Kumar",
+            quote: "Don't spend your vacation cleaning. Land in Kerala, drop your bags, and start living. They prep your home before you arrive.",
+            author: "Jacob Thomas",
             role: "NRI, Dubai",
             image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop",
         },
         {
             quote: "My mother feels cared for and engaged. The regular companionship has made a real difference in her daily happiness and peace of mind.",
-            author: "Priya Menon",
+            author: "Susan Cherian",
             role: "NRI, Singapore",
             image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop",
         },
