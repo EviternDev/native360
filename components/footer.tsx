@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Phone, Mail, Clock } from "lucide-react";
 
 const Footer = () => {
@@ -64,6 +65,7 @@ const Footer = () => {
                                 ["#about", "About"],
                                 ["#services", "Services"],
                                 ["#booking", "Book Now"],
+                                ["/terms", "Terms & Conditions"],
                             ].map(([href, label]) => (
                                 <li key={href}>
                                     <a
@@ -81,11 +83,18 @@ const Footer = () => {
                 {/* Divider */}
                 <div className="h-px bg-gradient-to-r from-amber-500 via-amber-400 to-teal-500 mb-4" />
                 <div className="flex flex-col items-center gap-1 text-center md:flex-row md:text-left md:justify-between">
-                    <p className="text-sm font-bold">Native360</p>
-                    <p className="text-xs opacity-60">
-                        &copy; 2025 Native360 &mdash; Care with integrity.
-                        Service with pride.
-                    </p>
+                    <div>
+                        <p className="text-sm font-bold">Native360</p>
+                        <p className="text-xs opacity-50">Native 360 is a unit of Verita Solutions</p>
+                    </div>
+                    <div className="flex flex-col items-center md:items-end gap-1">
+                        <p className="text-xs opacity-60">
+                            &copy; 2025 Native360 &mdash; Global Needs, Local Expertise.
+                        </p>
+                        <Link href="/terms" className="text-xs opacity-50 hover:opacity-80 transition-opacity underline underline-offset-2">
+                            Terms &amp; Conditions
+                        </Link>
+                    </div>
                 </div>
             </div>
         </footer>

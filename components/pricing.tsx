@@ -142,7 +142,7 @@ function PricingCard({ pkg }: { pkg: typeof packages[number] }) {
           </div>
           <p className="text-xs mt-1">
             <span className="font-semibold text-foreground/80">per quarter</span>
-            <span className="text-foreground/50"> &middot; customisable on request</span>
+            <span className="text-foreground/50"> (3 months) &middot; customisable on request</span>
           </p>
         </div>
       </CardHeader>
