@@ -6,7 +6,26 @@ import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
 import { AlertCircle, CheckCircle } from "lucide-react";
 
+const COUNTRY_CODES = [
+    { code: "+91",  flag: "🇮🇳", name: "India" },
+    { code: "+1",   flag: "🇺🇸", name: "USA" },
+    { code: "+1",   flag: "🇨🇦", name: "Canada" },
+    { code: "+44",  flag: "🇬🇧", name: "UK" },
+    { code: "+971", flag: "🇦🇪", name: "UAE" },
+    { code: "+61",  flag: "🇦🇺", name: "Australia" },
+    { code: "+65",  flag: "🇸🇬", name: "Singapore" },
+    { code: "+966", flag: "🇸🇦", name: "Saudi Arabia" },
+    { code: "+974", flag: "🇶🇦", name: "Qatar" },
+    { code: "+973", flag: "🇧🇭", name: "Bahrain" },
+    { code: "+965", flag: "🇰🇼", name: "Kuwait" },
+    { code: "+60",  flag: "🇲🇾", name: "Malaysia" },
+    { code: "+64",  flag: "🇳🇿", name: "New Zealand" },
+    { code: "+49",  flag: "🇩🇪", name: "Germany" },
+    { code: "+31",  flag: "🇳🇱", name: "Netherlands" },
+];
+
 const BookingForm = () => {
+    const [countryCode, setCountryCode] = useState("+91");
     const [formData, setFormData] = useState({
         fullName: "",
         email: "",
@@ -46,8 +65,9 @@ const BookingForm = () => {
             return false;
         }
 
-        if (!/^\d{10}$/.test(formData.phone.replace(/\D/g, ""))) {
-            setErrorMessage("Please enter a valid 10-digit phone number");
+        const digitsOnly = formData.phone.replace(/\D/g, "");
+        if (digitsOnly.length < 6 || digitsOnly.length > 15) {
+            setErrorMessage("Please enter a valid phone number");
             return false;
         }
 
@@ -67,7 +87,7 @@ const BookingForm = () => {
 
         // Prepare WhatsApp message with form data
         setTimeout(() => {
-            const message = `Hello Native360,\n\nI'm interested in your services. Here are my details:\n\nName: ${formData.fullName}\nPhone: ${formData.phone}\nEmail: ${formData.email}\nAddress: ${formData.address}\nPin Code: ${formData.pinCode}${formData.landmark ? `\nLandmark: ${formData.landmark}` : ""}\n\nPlease contact me soon.`;
+            const message = `Hello Native360,\n\nI'm interested in your services. Here are my details:\n\nName: ${formData.fullName}\nPhone: ${countryCode} ${formData.phone}\nEmail: ${formData.email}\nAddress: ${formData.address}\nPin Code: ${formData.pinCode}${formData.landmark ? `\nLandmark: ${formData.landmark}` : ""}\n\nPlease contact me soon.`;
 
             // Encode the message for URL
             const encodedMessage = encodeURIComponent(message);
@@ -85,6 +105,7 @@ const BookingForm = () => {
                 pinCode: "",
                 landmark: "",
             });
+            setCountryCode("+91");
 
             // Reset status after redirect
             setTimeout(() => setStatus("idle"), 5000);
@@ -143,15 +164,30 @@ const BookingForm = () => {
                             <label className="block text-sm font-medium text-foreground mb-2">
                                 Phone Number *
                             </label>
-                            <Input
-                                type="tel"
-                                name="phone"
-                                value={formData.phone}
-                                onChange={handleChange}
-                                placeholder="+91"
-                                className="w-full"
-                                disabled={status === "loading"}
-                            />
+                            <div className="flex gap-2">
+                                <select
+                                    value={countryCode}
+                                    onChange={(e) => setCountryCode(e.target.value)}
+                                    disabled={status === "loading"}
+                                    className="flex h-9 rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-xs transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 w-36 shrink-0"
+                                    aria-label="Country code"
+                                >
+                                    {COUNTRY_CODES.map((c, idx) => (
+                                        <option key={idx} value={c.code}>
+                                            {c.flag} {c.code}
+                                        </option>
+                                    ))}
+                                </select>
+                                <Input
+                                    type="tel"
+                                    name="phone"
+                                    value={formData.phone}
+                                    onChange={handleChange}
+                                    placeholder="Phone number"
+                                    className="flex-1"
+                                    disabled={status === "loading"}
+                                />
+                            </div>
                         </div>
 
                         {/* Address */}
