@@ -1,45 +1,65 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
-import { AlertCircle, CheckCircle } from "lucide-react";
+import { AlertCircle, CheckCircle, ChevronDown } from "lucide-react";
+import Image from "next/image";
 
 const COUNTRY_CODES = [
-    { code: "+91",  flag: "🇮🇳", name: "India" },
-    { code: "+1",   flag: "🇺🇸", name: "USA" },
-    { code: "+1",   flag: "🇨🇦", name: "Canada" },
-    { code: "+44",  flag: "🇬🇧", name: "UK" },
-    { code: "+353", flag: "🇮🇪", name: "Ireland" },
-    { code: "+971", flag: "🇦🇪", name: "UAE" },
-    { code: "+61",  flag: "🇦🇺", name: "Australia" },
-    { code: "+65",  flag: "🇸🇬", name: "Singapore" },
-    { code: "+966", flag: "🇸🇦", name: "Saudi Arabia" },
-    { code: "+974", flag: "🇶🇦", name: "Qatar" },
-    { code: "+973", flag: "🇧🇭", name: "Bahrain" },
-    { code: "+965", flag: "🇰🇼", name: "Kuwait" },
-    { code: "+60",  flag: "🇲🇾", name: "Malaysia" },
-    { code: "+64",  flag: "🇳🇿", name: "New Zealand" },
-    { code: "+49",  flag: "🇩🇪", name: "Germany" },
-    { code: "+31",  flag: "🇳🇱", name: "Netherlands" },
+    { code: "+91",  iso: "IN", name: "India" },
+    { code: "+1",   iso: "US", name: "USA" },
+    { code: "+1",   iso: "CA", name: "Canada" },
+    { code: "+44",  iso: "GB", name: "UK" },
+    { code: "+353", iso: "IE", name: "Ireland" },
+    { code: "+971", iso: "AE", name: "UAE" },
+    { code: "+61",  iso: "AU", name: "Australia" },
+    { code: "+65",  iso: "SG", name: "Singapore" },
+    { code: "+966", iso: "SA", name: "Saudi Arabia" },
+    { code: "+974", iso: "QA", name: "Qatar" },
+    { code: "+973", iso: "BH", name: "Bahrain" },
+    { code: "+965", iso: "KW", name: "Kuwait" },
+    { code: "+60",  iso: "MY", name: "Malaysia" },
+    { code: "+64",  iso: "NZ", name: "New Zealand" },
+    { code: "+49",  iso: "DE", name: "Germany" },
+    { code: "+31",  iso: "NL", name: "Netherlands" },
 ];
 
+function getFlagUrl(iso: string) {
+    return `https://flagcdn.com/w40/${iso.toLowerCase()}.png`;
+}
+
 const BookingForm = () => {
-    const [countryCode, setCountryCode] = useState("+91");
+    const [selectedIdx, setSelectedIdx] = useState(0); // index into COUNTRY_CODES
+    const [dropdownOpen, setDropdownOpen] = useState(false);
+    const dropdownRef = useRef<HTMLDivElement>(null);
     const [formData, setFormData] = useState({
         fullName: "",
         email: "",
         phone: "",
         address: "",
         pinCode: "",
-        landmark: "",
     });
 
     const [status, setStatus] = useState<
         "idle" | "loading" | "success" | "error"
     >("idle");
     const [errorMessage, setErrorMessage] = useState("");
+
+    // Close dropdown on outside click
+    useEffect(() => {
+        const handleClickOutside = (e: MouseEvent) => {
+            if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+                setDropdownOpen(false);
+            }
+        };
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => document.removeEventListener("mousedown", handleClickOutside);
+    }, []);
+
+    const selectedCountry = COUNTRY_CODES[selectedIdx];
+    const countryCode = selectedCountry.code;
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -88,7 +108,7 @@ const BookingForm = () => {
 
         // Prepare WhatsApp message with form data
         setTimeout(() => {
-            const message = `Hello Native360,\n\nI'm interested in your premium management and Concierge services. Here are my details:\n\nName: ${formData.fullName}\nPhone: ${countryCode} ${formData.phone}\nEmail: ${formData.email}\nAddress: ${formData.address}\nPin Code: ${formData.pinCode}${formData.landmark ? `\nLandmark: ${formData.landmark}` : ""}\n\nPlease contact me soon.`;
+            const message = `Hello Native360,\n\nI'm interested in your premium management and Concierge services. Here are my details:\n\nName: ${formData.fullName}\nPhone: ${countryCode} ${formData.phone}\nEmail: ${formData.email}\nAddress: ${formData.address}\nPin Code: ${formData.pinCode}\n\nPlease contact me soon.`;
 
             // Encode the message for URL
             const encodedMessage = encodeURIComponent(message);
@@ -104,9 +124,8 @@ const BookingForm = () => {
                 phone: "",
                 address: "",
                 pinCode: "",
-                landmark: "",
             });
-            setCountryCode("+91");
+            setSelectedIdx(0);
 
             // Reset status after redirect
             setTimeout(() => setStatus("idle"), 5000);
@@ -121,7 +140,7 @@ const BookingForm = () => {
                         Get Started Today
                     </h2>
                     <p className="text-foreground/70 text-lg">
-                        Share your details and we'll connect with you soon to
+                        Share your details and we&apos;ll connect with you soon to
                         discuss your needs
                     </p>
                 </div>
@@ -166,19 +185,61 @@ const BookingForm = () => {
                                 Phone Number *
                             </label>
                             <div className="flex gap-2">
-                                <select
-                                    value={countryCode}
-                                    onChange={(e) => setCountryCode(e.target.value)}
-                                    disabled={status === "loading"}
-                                    className="flex h-9 rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-xs transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 w-36 shrink-0"
-                                    aria-label="Country code"
-                                >
-                                    {COUNTRY_CODES.map((c, idx) => (
-                                        <option key={idx} value={c.code}>
-                                            {c.flag} {c.code}
-                                        </option>
-                                    ))}
-                                </select>
+                                {/* Custom country code dropdown */}
+                                <div className="relative w-36 shrink-0" ref={dropdownRef}>
+                                    <button
+                                        type="button"
+                                        onClick={() => setDropdownOpen((v) => !v)}
+                                        disabled={status === "loading"}
+                                        className="flex h-9 w-full items-center justify-between rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-xs transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
+                                        aria-label="Country code"
+                                        aria-expanded={dropdownOpen}
+                                    >
+                                        <span className="flex items-center gap-2">
+                                            <Image
+                                                src={getFlagUrl(selectedCountry.iso)}
+                                                alt={selectedCountry.name}
+                                                width={20}
+                                                height={15}
+                                                className="rounded-sm object-cover"
+                                                unoptimized
+                                            />
+                                            <span>{selectedCountry.code}</span>
+                                        </span>
+                                        <ChevronDown className={`w-3.5 h-3.5 text-foreground/50 transition-transform duration-200 ${dropdownOpen ? "rotate-180" : ""}`} />
+                                    </button>
+
+                                    {dropdownOpen && (
+                                        <div className="absolute top-full left-0 z-50 mt-1 w-52 max-h-60 overflow-y-auto rounded-md border border-input bg-card shadow-lg animate-in fade-in slide-in-from-top-1 duration-150">
+                                            {COUNTRY_CODES.map((c, idx) => (
+                                                <button
+                                                    key={idx}
+                                                    type="button"
+                                                    onClick={() => {
+                                                        setSelectedIdx(idx);
+                                                        setDropdownOpen(false);
+                                                    }}
+                                                    className={`flex w-full items-center gap-3 px-3 py-2 text-sm transition-colors hover:bg-primary/10 ${
+                                                        idx === selectedIdx
+                                                            ? "bg-primary/10 font-medium"
+                                                            : ""
+                                                    }`}
+                                                >
+                                                    <Image
+                                                        src={getFlagUrl(c.iso)}
+                                                        alt={c.name}
+                                                        width={20}
+                                                        height={15}
+                                                        className="rounded-sm object-cover"
+                                                        unoptimized
+                                                    />
+                                                    <span className="text-foreground/70">{c.iso}</span>
+                                                    <span>{c.code}</span>
+                                                </button>
+                                            ))}
+                                        </div>
+                                    )}
+                                </div>
                                 <Input
                                     type="tel"
                                     name="phone"
@@ -207,38 +268,20 @@ const BookingForm = () => {
                             />
                         </div>
 
-                        <div className="grid grid-cols-2 gap-4">
-                            {/* Pin Code */}
-                            <div>
-                                <label className="block text-sm font-medium text-foreground mb-2">
-                                    Pin Code *
-                                </label>
-                                <Input
-                                    type="text"
-                                    name="pinCode"
-                                    value={formData.pinCode}
-                                    onChange={handleChange}
-                                    placeholder="680001"
-                                    className="w-full"
-                                    disabled={status === "loading"}
-                                />
-                            </div>
-
-                            {/* Landmark */}
-                            <div>
-                                <label className="block text-sm font-medium text-foreground mb-2">
-                                    Nearby Landmark
-                                </label>
-                                <Input
-                                    type="text"
-                                    name="landmark"
-                                    value={formData.landmark}
-                                    onChange={handleChange}
-                                    placeholder="e.g., Near City Hospital"
-                                    className="w-full"
-                                    disabled={status === "loading"}
-                                />
-                            </div>
+                        {/* Pin Code */}
+                        <div>
+                            <label className="block text-sm font-medium text-foreground mb-2">
+                                Pin Code *
+                            </label>
+                            <Input
+                                type="text"
+                                name="pinCode"
+                                value={formData.pinCode}
+                                onChange={handleChange}
+                                placeholder="680001"
+                                className="w-full"
+                                disabled={status === "loading"}
+                            />
                         </div>
 
                         {/* Error Message */}

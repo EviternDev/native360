@@ -132,6 +132,9 @@ function PricingCard({ pkg }: { pkg: typeof packages[number] }) {
           {pkg.description}
         </p>
         <div className="mt-2">
+          <p className="text-xs font-medium text-foreground/50 uppercase tracking-wide mb-0.5">
+            Starting from
+          </p>
           <div className="flex items-baseline gap-3">
             <p className="text-3xl font-bold text-primary">
               {pkg.price}
