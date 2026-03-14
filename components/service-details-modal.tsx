@@ -2,6 +2,7 @@
 
 import { X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { WHATSAPP_BOOK_NOW_URL } from '@/lib/constants';
 
 const imageDescriptions = {
   'Elder Companionship': [
@@ -63,8 +64,7 @@ const ServiceDetailsModal = ({
 
   const handleBookNow = () => {
     onClose();
-    const bookingSection = document.getElementById('booking');
-    bookingSection?.scrollIntoView({ behavior: 'smooth' });
+    window.open(WHATSAPP_BOOK_NOW_URL, "_blank", "noopener,noreferrer");
   };
 
   return (

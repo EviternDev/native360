@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { useState, useEffect } from "react";
+import { WHATSAPP_BOOK_NOW_URL } from "@/lib/constants";
 
 const Hero = () => {
     const heroImages = [
@@ -70,7 +71,7 @@ const Hero = () => {
 
             {/* CTAs */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center animate-in fade-in slide-in-from-bottom-4 duration-700 delay-500">
-              <a href="#booking">
+              <a href={WHATSAPP_BOOK_NOW_URL} target="_blank" rel="noopener noreferrer">
                 <Button className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-6 text-lg font-semibold w-full sm:w-auto shadow-lg transition-all duration-300 hover:scale-105">
                   Book Now
                 </Button>
