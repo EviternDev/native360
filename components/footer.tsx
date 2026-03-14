@@ -1,11 +1,12 @@
 import Link from "next/link";
 import { Phone, Mail, MapPin, ArrowUpRight } from "lucide-react";
+import { WHATSAPP_BOOK_NOW_URL } from "@/lib/constants";
 
 const quickLinks = [
     { href: "/about", label: "About" },
     { href: "/pricing", label: "Pricing" },
     { href: "/#services", label: "Services" },
-    { href: "/#booking", label: "Book Now" },
+    { href: WHATSAPP_BOOK_NOW_URL, label: "Book Now", target: "_blank", rel: "noopener noreferrer" },
 ];
 
 const Footer = () => {
@@ -46,10 +47,12 @@ const Footer = () => {
                                     Quick Links
                                 </h3>
                                 <ul className="grid grid-cols-[auto_auto] gap-x-8 gap-y-1">
-                                    {quickLinks.map(({ href, label }) => (
+                                    {quickLinks.map(({ href, label, target, rel }) => (
                                         <li key={href}>
                                             <Link
                                                 href={href}
+                                                target={target}
+                                                rel={rel}
                                                 className="group flex items-center gap-1.5 py-1.5 text-sm text-white/60 hover:text-white transition-colors duration-200"
                                             >
                                                 <span>{label}</span>
