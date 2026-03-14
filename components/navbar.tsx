@@ -15,6 +15,7 @@ const Navbar = () => {
     { label: "Pricing", href: "/pricing" },
     { label: "Districts", href: "/#districts" },
     { label: "Testimonials", href: "/#testimonials" },
+    { label: "Contact Us", href: "/#booking" },
   ];
 
   const handleNavClick = (href: string) => {
