@@ -88,7 +88,7 @@ const BookingForm = () => {
 
         // Prepare WhatsApp message with form data
         setTimeout(() => {
-            const message = `Hello Native360,\n\nI'm interested in your services. Here are my details:\n\nName: ${formData.fullName}\nPhone: ${countryCode} ${formData.phone}\nEmail: ${formData.email}\nAddress: ${formData.address}\nPin Code: ${formData.pinCode}${formData.landmark ? `\nLandmark: ${formData.landmark}` : ""}\n\nPlease contact me soon.`;
+            const message = `Hello Native360,\n\nI'm interested in your premium management and Concierge services. Here are my details:\n\nName: ${formData.fullName}\nPhone: ${countryCode} ${formData.phone}\nEmail: ${formData.email}\nAddress: ${formData.address}\nPin Code: ${formData.pinCode}${formData.landmark ? `\nLandmark: ${formData.landmark}` : ""}\n\nPlease contact me soon.`;
 
             // Encode the message for URL
             const encodedMessage = encodeURIComponent(message);
