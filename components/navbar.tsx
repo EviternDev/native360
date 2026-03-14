@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { WHATSAPP_BOOK_NOW_URL } from "@/lib/constants";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -14,6 +15,7 @@ const Navbar = () => {
     { label: "Pricing", href: "/pricing" },
     { label: "Districts", href: "/#districts" },
     { label: "Testimonials", href: "/#testimonials" },
+    { label: "Contact Us", href: "/#booking" },
   ];
 
   const handleNavClick = (href: string) => {
@@ -50,7 +52,7 @@ const Navbar = () => {
 
           {/* CTA Button & Mobile Menu */}
           <div className="flex items-center gap-4">
-            <a href="/#booking" className="hidden sm:inline-block">
+            <a href={WHATSAPP_BOOK_NOW_URL} target="_blank" rel="noopener noreferrer" className="hidden sm:inline-block">
               <Button className="bg-primary hover:bg-primary/90 text-primary-foreground shadow-md">
                 Book Now
               </Button>
@@ -79,7 +81,7 @@ const Navbar = () => {
                 {link.label}
               </a>
             ))}
-            <a href="/#booking" className="block px-3 py-2">
+            <a href={WHATSAPP_BOOK_NOW_URL} target="_blank" rel="noopener noreferrer" className="block px-3 py-2">
               <Button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground">
                 Book Now
               </Button>
