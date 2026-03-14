@@ -110,12 +110,20 @@ const Footer = () => {
                             A unit of Verita Solutions
                         </p>
                     </div>
-                    <Link
-                        href="/terms"
-                        className="text-xs text-white/30 hover:text-white/60 transition-colors duration-200 underline underline-offset-2 decoration-white/10 hover:decoration-white/30"
-                    >
-                        Terms &amp; Conditions
-                    </Link>
+                    <div className="flex items-center gap-4">
+                        <Link
+                            href="/privacy"
+                            className="text-xs text-white/30 hover:text-white/60 transition-colors duration-200 underline underline-offset-2 decoration-white/10 hover:decoration-white/30"
+                        >
+                            Privacy Policy
+                        </Link>
+                        <Link
+                            href="/terms"
+                            className="text-xs text-white/30 hover:text-white/60 transition-colors duration-200 underline underline-offset-2 decoration-white/10 hover:decoration-white/30"
+                        >
+                            Terms &amp; Conditions
+                        </Link>
+                    </div>
                 </div>
             </div>
         </footer>
