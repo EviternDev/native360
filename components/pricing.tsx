@@ -1,7 +1,6 @@
 "use client";
 
-import { useState } from "react";
-import { Check, ChevronDown } from "lucide-react";
+import { Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardContent, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -84,18 +83,7 @@ const packages = [
   },
 ];
 
-// Total feature items per plan — used to decide if expand is needed
-const totalItems = (pkg: typeof packages[number]) =>
-  pkg.features.reduce((acc, f) => acc + f.items.length, 0);
-
-// The tallest plan drives height — everything else expands to match
-const MAX_ITEMS = Math.max(...packages.map(totalItems));
-
 function PricingCard({ pkg }: { pkg: typeof packages[number] }) {
-  const [expanded, setExpanded] = useState(false);
-  const isShort = totalItems(pkg) < MAX_ITEMS;
-  const showToggle = isShort;
-
   return (
     <Card
       className={`group relative flex flex-col h-full overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1 gap-0 py-0 ${
@@ -171,67 +159,6 @@ function PricingCard({ pkg }: { pkg: typeof packages[number] }) {
             </ul>
           </div>
         ))}
-
-        {/* Expand toggle — only shown on shorter cards */}
-        {showToggle && (
-          <button
-            onClick={() => setExpanded((v) => !v)}
-            className="flex items-center gap-1.5 text-xs font-semibold text-primary/70 hover:text-primary transition-colors duration-200 mt-2 group/toggle"
-            aria-expanded={expanded}
-          >
-            <ChevronDown
-              className={`w-3.5 h-3.5 transition-transform duration-300 ${
-                expanded ? "rotate-180" : ""
-              }`}
-            />
-            {expanded ? "Show less" : "What's not included"}
-          </button>
-        )}
-
-        {/* Greyed-out "not included" items shown when expanded */}
-        {showToggle && expanded && (
-          <div className="space-y-5 border-t border-border/50 pt-4 animate-in fade-in slide-in-from-top-2 duration-300">
-            {packages[2].features
-              .filter(
-                (eliteFeature) =>
-                  !pkg.features.some((f) => f.category === eliteFeature.category) ||
-                  eliteFeature.items.some(
-                    (item) =>
-                      !pkg.features
-                        .find((f) => f.category === eliteFeature.category)
-                        ?.items.includes(item)
-                  )
-              )
-              .map((feature, fIdx) => {
-                const existingCat = pkg.features.find(
-                  (f) => f.category === feature.category
-                );
-                const missingItems = feature.items.filter(
-                  (item) => !existingCat?.items.includes(item)
-                );
-                if (missingItems.length === 0) return null;
-                return (
-                  <div key={fIdx} className="opacity-40">
-                    <h4 className="text-xs font-semibold uppercase tracking-wider text-foreground/50 mb-2.5 border-l-2 border-border pl-2">
-                      {feature.category}
-                    </h4>
-                    <ul className="space-y-2">
-                      {missingItems.map((item, iIdx) => (
-                        <li key={iIdx} className="flex items-start gap-2.5">
-                          <span className="bg-muted rounded-full p-1 mt-0.5 flex-shrink-0">
-                            <Check className="w-3.5 h-3.5 text-foreground/30" />
-                          </span>
-                          <span className="text-sm text-foreground/40 line-through decoration-foreground/20">
-                            {item}
-                          </span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                );
-              })}
-          </div>
-        )}
       </CardContent>
 
       {/* CTA — always pinned to bottom */}
