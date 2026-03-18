@@ -8,19 +8,16 @@ const Testimonials = () => {
             quote: "Don't spend your vacation cleaning. Land in Kerala, drop your bags, and start living. They prep your home before you arrive.",
             author: "Jacob Thomas",
             role: "NRI, Dubai",
-            // image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop",
         },
         {
             quote: "My mother feels cared for and engaged. The regular companionship has made a real difference in her daily happiness and peace of mind.",
             author: "Susan Cherian",
             role: "NRI, Singapore",
-            // image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop",
         },
         {
             quote: "The team is professional, reliable, and treats my parents like family. Finally, I can focus on work knowing everything is in good hands.",
             author: "Anand Pillai",
             role: "NRI, USA",
-            // image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&fit=crop",
         },
     ];
 
@@ -57,12 +54,7 @@ const Testimonials = () => {
                                 </p>
 
                                 {/* Author */}
-                                <div className="flex items-center gap-4 pt-4 border-t border-primary/15">
-                                    <img
-                                        // src={testimonial.image}
-                                        alt={testimonial.author}
-                                        className="w-12 h-12 rounded-full object-cover"
-                                    />
+                                <div className="pt-4 border-t border-primary/15">
                                     <div>
                                         <p className="font-semibold text-foreground">
                                             {testimonial.author}
